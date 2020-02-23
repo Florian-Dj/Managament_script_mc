@@ -11,7 +11,7 @@ Gestion des versions via le site [Papermc.io](https://papermc.io)</p>
 ```
 $ git clone https://github.com/Mucral/Managament_script_mc.git
 $ cd YourFolder
-$ install wget java -y
+$ [apt yum] install wget java screen -y
 $ ./management_script_mc.sh
 ```
 Then to run it, execute the following in the terminal:
