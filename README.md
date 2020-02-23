@@ -1,6 +1,6 @@
 <h1 align="center">Management Server Mc</h1>
 <p align="center">Installation d'un serveur Mc sur une machine Virtuel <br />
-Gestion des vrsions via le site <a html"https://papermc.io/">Papermc.io</a></p>
+Gestion des versions via le site [Parermc.io](https://papermc.io)</p>
 
 ## Getting Started
 
