@@ -1,6 +1,6 @@
 <h1 align="center">Management Server Mc</h1>
 <p align="center">Installation d'un serveur Mc sur une machine Virtuel <br />
-Gestion des versions via le site [Parermc.io](https://papermc.io)</p>
+Gestion des versions via le site [Papermc.io](https://papermc.io)</p>
 
 ## Getting Started
 
@@ -11,6 +11,7 @@ Gestion des versions via le site [Parermc.io](https://papermc.io)</p>
 ```
 $ git clone https://github.com/Mucral/Managament_script_mc.git
 $ cd YourFolder
+$ install wget java -y
 $ ./management_script_mc.sh
 ```
 Then to run it, execute the following in the terminal:
