@@ -32,10 +32,13 @@ echo "Minecraft Server PaperMc $version Download !"
 
 mkdir /opt/minecraft/
 mkdir /opt/minecraft/$name/
+
 chown minecraft: java-server.jar
 mv java-server.jar /opt/minecraft/$name/java-server.jar
 
 cp mc-run.sh /opt/minecraft/$name/mc-run.sh
 chown minecraft: /opt/minecraft/$name/mc-run.sh
+
+cp eula.txt /opt/minecraft/$name/eula.txt
 
 cp minecraft-template.service /usr/lib/systemd/system/minecraft-"$name".service

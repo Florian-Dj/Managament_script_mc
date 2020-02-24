@@ -1,12 +1,14 @@
 [Unit]
-Description=Service Server Minecraft test
+Description=Service server minecraft svr-name
 After=network.target
 
 [Service]
 Type=forking
 
-ExecStart=/usr/bin/screen -dmS pi /opt/minecraft/mc-run.sh
+ExecStart=/usr/bin/screen -dmS mc-svr-name /opt/minecraft/svr-name/mc-run.sh
 
-ExecStop=/usr/bin/screen -p 0 -S pi eval 'stuff"save-all"\015'
-ExecStop=/usr/bin/screen -p 0 -S pi -X eval 'stuff "stop"\015'
+ExecStop=/usr/bin/screen -p 0 -S mc-svr-name -X eval 'stuff"save-all"\015'
+ExecStop=/usr/bin/screen -p 0 -S mc-svr-name -X eval 'stuff "stop"\015'
 
+[Install]
+WantedBy=multi-user.target
