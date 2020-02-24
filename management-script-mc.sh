@@ -3,6 +3,7 @@
 # read -p "Name Project: " name
 # useradd $name --home /home/$name --shell /bin/bash
 
+choose_version () {
 echo """
 Choose Version :
 
@@ -18,12 +19,20 @@ case $choose in
     2) version="1.13.2";;
     3) version="1.14.4";;
     4) version="1.15.2";;
-    *) version="Rien";;
+    *) choose_version;;
 esac
+}
+
+choose_version
+
 wget -O java-server.jar https://papermc.io/api/v1/paper/$version/latest/download
-echo "Minecraft Server $version Download !"
+echo "Minecraft Server PaperMc $version Download !"
+
 mkdir /opt/minecraft/
 chown minecraft: java-server.jar
 mv java-server.jar /opt/minecraft/java-server.jar
+
 cp mc-run.sh /opt/minecraft/mc-run.sh
 chown minecraft: /opt/minecraft/mc-run.sh
+
+mv minecraft-test.service /usr/lib/systemd/system/minecraft-test.service

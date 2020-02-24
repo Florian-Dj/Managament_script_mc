@@ -1,0 +1,8 @@
+[Unit]
+Description=Service Server Minecraft test
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=-screen -dmS server-minecraft /opt/minecraft/./mc-run.sh
+
