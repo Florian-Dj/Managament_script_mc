@@ -1,14 +1,19 @@
 [Unit]
-Description=Service server minecraft svr-name
-After=network.target
+Description=mcserver-srv-name
 
 [Service]
+WorkingDirectory=/home/minecraft/instances/srv-name
+User=minecraft
 Type=forking
 
-ExecStart=/usr/bin/screen -dmS mc-svr-name /opt/minecraft/svr-name/mc-run.sh
+ExecStart=/usr/bin/screen -DmS mcserv-srv-name /bin/bash /opt/minecraft/instances/srv-name/mc-run.sh
 
-ExecStop=/usr/bin/screen -p 0 -S mc-svr-name -X eval 'stuff"save-all"\015'
-ExecStop=/usr/bin/screen -p 0 -S mc-svr-name -X eval 'stuff "stop"\015'
+ExecStop=/usr/bin/screen -p 0 -S mcserv-srv-name -X eval 'stuff "say SERVER SHUTTING DOWN. Saving map..."\\015'
+ExecStop=/usr/bin/sleep 5
+ExecStop=/usr/bin/screen -p 0 -S mcserv-srv-name -X eval 'stuff "save-all"\\015'
+ExecStop=/usr/bin/screen -p 0 -S mcserv-srv-name -X eval 'stuff "stop"\\015'
+ExecStop=/bin/sleep 2
 
 [Install]
 WantedBy=multi-user.target
+
