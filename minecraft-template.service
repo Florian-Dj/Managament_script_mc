@@ -3,6 +3,10 @@ Description=Service Server Minecraft test
 After=network.target
 
 [Service]
-Type=oneshot
-ExecStart=-screen -dmS server-minecraft /opt/minecraft/./mc-run.sh
+Type=forking
+
+ExecStart=/usr/bin/screen -dmS pi /opt/minecraft/mc-run.sh
+
+ExecStop=/usr/bin/screen -p 0 -S pi eval 'stuff"save-all"\015'
+ExecStop=/usr/bin/screen -p 0 -S pi -X eval 'stuff "stop"\015'
 
