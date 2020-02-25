@@ -3,12 +3,7 @@
 spigot=(4 15)
 craftbukkit=(0 15)
 paper=(12 15)
-
-# echo ${spigot[0]}
-for i in `seq ${spigot[0]} ${spigot[1]}`;
-do
-	echo $i - 1.$i
-done
+url=""
 
 # Choose Project Name
 read -p 'Project Name: ' name
@@ -21,18 +16,17 @@ Choose Bukkit :
 1 - Spigot
 2 - Craftbukkit
 3 - Papermc
-
 """
 read -p "Bukkit server: " bukkit
 case $bukkit in
     1)	url="https://cdn.getbukkit.org/spigot/spigot-version.jar"
-	choose_version
+	choose_version "spigot"
 	;;
     2)	url="https://cdn.getbukkit.org/craftbukkit/craftbukkit-version.jar"
-	choose_version
+	choose_version "craftbukkit"
 	;;
     3)	url="https://papermc.io/api/v1/paper/version/latest/download"
-	choose_version
+	choose_version "paper"
 	;;
     *) choose_bukkit;;
 esac
@@ -40,18 +34,20 @@ esac
 
 # Choose version minecraft server
 choose_version() {
-echo "Choose Version :"
-for i in `seq ${spigot[0]} ${spigot[1]}`;
+echo "Choose Version :" \n
+
+for i in `seq $(($1[0])) $(($1[1]))`;
 do
 	echo $i - 1.$i
 done
+
 read -p 'Patch server: ' patch
 case $patch in
     1) version="1.12.2";;
     2) version="1.13.2";;
     3) version="1.14.4";;
     4) version="1.15.2";;
-    *) choose_version;;
+    *) choose_version $1;;
 esac
 }
 
@@ -71,7 +67,7 @@ mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
 cp mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
 
 # Copy/Paste eula.txt
-cp eula.txt /opt/minecraft/$name/eula.txt
+cp eula.txt /opt/minecraft/instances/$name/eula.txt
 
 # Copy/Pasten change variable and move minecraft.service
 cp minecraft-template.service minecraft-"$name".service
