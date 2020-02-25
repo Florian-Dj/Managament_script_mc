@@ -9,7 +9,7 @@ Gestion des versions via le site [Papermc.io](https://papermc.io)</p>
 
 ### Installing Via [GitHub](https://github.com/Mucral/Managament_script_mc)
 ```
-$ [apt yum] install wget java screen -y
+$ [apt yum] install wget java screen git -y
 $ useradd minecraft --home /home/minecraft --shell /bin/bash
 $ mkdir /home/minecraft/instances
 $ chown -R minecraft: /home/minecraft
@@ -21,9 +21,8 @@ $ ./management_script_mc.sh
 ```
 or
 ```
-$ git clone https://github.com/Mucral/Managament_script_mc.git
-$ cd YourFolder
 $ ./init.sh
+$ cd YourFolder
 $ ./management_script_mc.sh
 ```
 <!---
