@@ -25,14 +25,13 @@ $ git clone https://github.com/Mucral/Managament_script_mc.git
 $ cd YourFolder
 $ ./init.sh
 ```
-
+<!---
 #### Running Locally Via [Github](https://github.com/YourUser/YourProject) (no install)
 You can run this project locally by following these steps:
 1. Clone/download the [repo](https://github.com/YourUser/YourProject)
 2. Open terminal and cd into the project
 3. Execute ```command_execution```
 
-<!---
 ## Using the Application
 1. Do this
     - Precision
