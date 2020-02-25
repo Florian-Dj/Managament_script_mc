@@ -17,6 +17,7 @@ Choose Bukkit :
 2 - Craftbukkit
 3 - Papermc
 """
+
 read -p "Bukkit server: " bukkit
 case $bukkit in
     1)	url="https://cdn.getbukkit.org/spigot/spigot-version.jar"
@@ -34,25 +35,32 @@ esac
 
 # Choose version minecraft server
 choose_version() {
-echo "Choose Version :" \n
+echo -e "Choose Version for $1: \n"
 
 for i in `seq $(($1[0])) $(($1[1]))`;
 do
 	echo $i - 1.$i
 done
+echo ""
 
-read -p 'Patch server: ' patch
-case $patch in
-    1) version="1.12.2";;
-    2) version="1.13.2";;
-    3) version="1.14.4";;
-    4) version="1.15.2";;
-    *) choose_version $1;;
-esac
+#read -p 'Patch server: ' patch
+if [ $(($1[1])) -ge 10 ]
+then
+    echo "[0-9]|1[0-4]"
+    echo ${$1[1]:-1}
+    echo "[$(($1[0]))-9]|1[0-$(($1[1]))]"
+fi
+#case $patch in
+#    [4-9]|1[0-4]) version="1.$patch";;
+#    *) choose_version $1;;
+#esac
+#echo $version
 }
 
+#Launch function choose_bukkit
 choose_bukkit
 
+<< END_POINT
 # Download java-server.jar
 wget -O java-server.jar https://papermc.io/api/v1/paper/$version/latest/download
 echo "Minecraft Server PaperMc $version Download !"
