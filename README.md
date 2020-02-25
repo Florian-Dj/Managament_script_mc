@@ -24,6 +24,7 @@ or
 $ git clone https://github.com/Mucral/Managament_script_mc.git
 $ cd YourFolder
 $ ./init.sh
+$ ./management_script_mc.sh
 ```
 <!---
 #### Running Locally Via [Github](https://github.com/YourUser/YourProject) (no install)
