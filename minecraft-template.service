@@ -2,7 +2,7 @@
 Description=mcserver-srv-name
 
 [Service]
-WorkingDirectory=/home/minecraft/instances/srv-name
+WorkingDirectory=/opt/minecraft/instances/srv-name
 User=minecraft
 Type=forking
 
