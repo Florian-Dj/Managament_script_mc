@@ -40,15 +40,11 @@ esac
 
 # Choose version minecraft server
 choose_version() {
-echo """
-Choose Version :
-
-1 - 1.12
-2 - 1.13
-3 - 1.14
-4 - 1.15
-
-"""
+echo "Choose Version :"
+for i in `seq ${spigot[0]} ${spigot[1]}`;
+do
+	echo $i - 1.$i
+done
 read -p 'Patch server: ' patch
 case $patch in
     1) version="1.12.2";;
