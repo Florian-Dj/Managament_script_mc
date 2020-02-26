@@ -37,34 +37,39 @@ esac
 choose_version() {
 echo -e "Choose Version for $1: \n"
 
-for i in `seq $(($1[0])) $(($1[1]))`;
+for i in `seq $(($1[0])) $(($1[1]))`
 do
 	echo $i - 1.$i
 done
-echo ""
+echo -e "\n"
 
-#read -p 'Patch server: ' patch
-if [ $(($1[1])) -ge 10 ]
+tab=()
+for i in `seq $(($1[0])) $(($1[1]))`
+do
+     tab[$i]=$i
+done
+
+echo "${tab[*]}"
+
+read -p 'Patch server: ' patch
+if [[ " ${tab[*]} " =~ .*\ $patch\ .* ]]
 then
-    echo "[0-9]|1[0-4]"
-    echo ${$1[1]:-1}
-    echo "[$(($1[0]))-9]|1[0-$(($1[1]))]"
+    version="1.$patch"
+else
+    choose_version $1
 fi
-#case $patch in
-#    [4-9]|1[0-4]) version="1.$patch";;
-#    *) choose_version $1;;
-#esac
-#echo $version
+echo $version
 }
 
 #Launch function choose_bukkit
 choose_bukkit
 
-<< END_POINT
+
 # Download java-server.jar
 wget -O java-server.jar https://papermc.io/api/v1/paper/$version/latest/download
 echo "Minecraft Server PaperMc $version Download !"
 
+<< END_POINT
 # Create folder minecraft and folder project name
 mkdir /opt/minecraft/instances/$name
 
