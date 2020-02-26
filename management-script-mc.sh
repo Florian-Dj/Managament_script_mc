@@ -67,8 +67,8 @@ choose_bukkit
 
 
 # Download java-server.jar
-wget -O java-server.jar https://papermc.io/api/v1/paper/$version/latest/download
-echo "Minecraft Server PaperMc $version Download !"
+wget -O java-server.jar $url=${url//version/$version}
+echo "Minecraft Server $bukkit $version Download !"
 
 << END_POINT
 # Create folder minecraft and folder project name
