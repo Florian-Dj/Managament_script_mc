@@ -1,7 +1,9 @@
 #!/bin/bash
 
 spigot=(4 15)
+spigot_version=(7 2 4 10 8 4 2 2 2 2 4 2)
 craftbukkit=(0 15)
+craftbukkit_version=(0 1 5 2 7 2 4 10 8 4 2 2 2 2 4 2)
 paper=(12 15)
 url=""
 
@@ -30,7 +32,7 @@ case $bukkit in
     3)	url="https://papermc.io/api/v1/paper/version/latest/download"
 	choose_version "paper"
 	;;
-    4)  read -p "Your Link dl: " link
+    4)  read -p "Your Link java-server.jar: " link
 	url=$link
 	;;
     *) choose_bukkit;;
@@ -41,14 +43,16 @@ esac
 choose_version() {
 echo -e "Choose Version for $1: \n"
 
+u=1
 for i in `seq $(($1[0])) $(($1[1]))`
 do
-	echo $i - 1.$i
+	echo $u - 1.$i
+	((u++))
 done
 echo -e "\n"
 
 tab=()
-for i in `seq $(($1[0])) $(($1[1]))`
+for i in `seq 1 $(($1[1]))`
 do
      tab[$i]=$i
 done
@@ -65,22 +69,17 @@ fi
 #Launch function choose_bukkit
 choose_bukkit
 
-
-# Download java-server.jar
-wget -O java-server.jar $url=${url//version/$version}
-echo "Minecraft Server $bukkit $version Download !"
-
-<< END_POINT
-# Create folder minecraft and folder project name
+# Create folder projet, opt and home
 mkdir /opt/minecraft/instances/$name
+mkdir /home/minecraft/instances/$name
 
-# Change owner and move java-server.jar
+# Download java-server.jar and move
+wget -O java-server.jar $url=${url//version/$version}
 mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
+echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
 
-# Copy/Paste and change owner mc-run.sh
+# Copy/Paste, mc-run.sh and eula.txt
 cp mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
-
-# Copy/Paste eula.txt
 cp eula.txt /opt/minecraft/instances/$name/eula.txt
 
 # Copy/Pasten change variable and move minecraft.service
@@ -90,3 +89,4 @@ mv minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".service
 
 #Change owner folder minecraft
 chown -R minecraft: /opt/minecraft/
+chown -R minecraft: /home/minecraft/
