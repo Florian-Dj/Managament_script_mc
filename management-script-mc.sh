@@ -16,6 +16,7 @@ Choose Bukkit :
 1 - Spigot
 2 - Craftbukkit
 3 - Papermc
+4 - Other
 """
 
 read -p "Bukkit server: " bukkit
@@ -28,6 +29,9 @@ case $bukkit in
 	;;
     3)	url="https://papermc.io/api/v1/paper/version/latest/download"
 	choose_version "paper"
+	;;
+    4)  read -p "Your Link dl: " link
+	url=$link
 	;;
     *) choose_bukkit;;
 esac
@@ -49,8 +53,6 @@ do
      tab[$i]=$i
 done
 
-echo "${tab[*]}"
-
 read -p 'Patch server: ' patch
 if [[ " ${tab[*]} " =~ .*\ $patch\ .* ]]
 then
@@ -58,7 +60,6 @@ then
 else
     choose_version $1
 fi
-echo $version
 }
 
 #Launch function choose_bukkit
