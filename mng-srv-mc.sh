@@ -75,30 +75,25 @@ choose_bukkit
 
 echo "Minecraft Server $name $version Download on /opt/minecraft/instances/$name !"
 
-<<COMMENT
-# Create folder projet, opt and home
+# Create folder projet on /opt
 mkdir /opt/minecraft/instances/$name
-mkdir /home/minecraft/instances/$name
-COMMENT
 
 # Download java-server.jar and move
 url=${url/version/$version}
 wget -O java-server.jar $url
-<<COMMENT
 mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
 echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
 
 # Copy/Paste, mc-run.sh and eula.txt
-cp mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
-cp eula.txt /opt/minecraft/instances/$name/eula.txt
+cp file-mc/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
+cp file-mc/eula.txt /opt/minecraft/instances/$name/eula.txt
 
 # Copy/Pasten change variable and move minecraft.service
-cp minecraft-template.service minecraft-"$name".service
-sed -i "s/srv-name/$name/g" minecraft-"$name".service
-mv minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".service
+cp file-mc/minecraft-template.service file-mc/minecraft-"$name".service
+sed -i "s/srv-name/$name/g" file-mc/minecraft-"$name".service
+mv file-mc/minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".service
 
 #Change owner folder minecraft
 chown -R minecraft: /opt/minecraft/
 chown -R minecraft: /home/minecraft/
-COMMENT
 
