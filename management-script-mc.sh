@@ -52,8 +52,6 @@ done
 echo "0 - Back"
 echo -e
 
-echo $(($1[1]-$1[0]+1))
-
 tab=()
 for i in `seq 1 $(($1[1]-$1[0]+1))`
 do
@@ -81,9 +79,12 @@ echo "Minecraft Server $name $version Download on /opt/minecraft/instances/$name
 # Create folder projet, opt and home
 mkdir /opt/minecraft/instances/$name
 mkdir /home/minecraft/instances/$name
+COMMENT
 
 # Download java-server.jar and move
-wget -O java-server.jar $url=${url//version/$version}
+url=${url/version/$version}
+wget -O java-server.jar $url
+<<COMMENT
 mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
 echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
 
