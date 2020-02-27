@@ -49,18 +49,24 @@ do
 	echo $u - 1.$i
 	((u++))
 done
-echo -e "\n"
+echo "0 - Back"
+echo -e
+
+echo $(($1[1]-$1[0]+1))
 
 tab=()
-for i in `seq 1 $(($1[1]))`
+for i in `seq 1 $(($1[1]-$1[0]+1))`
 do
-     tab[$i]=$i
+     tab[$i]=$(($1[0]+$i-1))
 done
 
 read -p 'Patch server: ' patch
-if [[ " ${tab[*]} " =~ .*\ $patch\ .* ]]
+if [ 1 -le $patch ] && [ $patch -le ${#tab[*]} ]
 then
-    version="1.$patch"
+    version="1.${tab[$patch]}"
+elif [ $patch == 0 ]
+then
+    choose_bukkit
 else
     choose_version $1
 fi
@@ -69,6 +75,9 @@ fi
 #Launch function choose_bukkit
 choose_bukkit
 
+echo "Minecraft Server $name $version Download on /opt/minecraft/instances/$name !"
+
+<<COMMENT
 # Create folder projet, opt and home
 mkdir /opt/minecraft/instances/$name
 mkdir /home/minecraft/instances/$name
@@ -90,3 +99,5 @@ mv minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".service
 #Change owner folder minecraft
 chown -R minecraft: /opt/minecraft/
 chown -R minecraft: /home/minecraft/
+COMMENT
+
