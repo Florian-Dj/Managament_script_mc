@@ -46,7 +46,7 @@ echo -e "Choose Version for $1: \n"
 u=1
 for i in `seq $(($1[0])) $(($1[1]))`
 do
-	echo $u - 1.$i
+	echo "$u - 1.${i}.$(($1_version[$u-1]))"
 	((u++))
 done
 echo "0 - Back"
@@ -57,11 +57,18 @@ for i in `seq 1 $(($1[1]-$1[0]+1))`
 do
      tab[$i]=$(($1[0]+$i-1))
 done
-
+}
+choose_bukkit
+<<COMMENT
 read -p 'Patch server: ' patch
 if [ 1 -le $patch ] && [ $patch -le ${#tab[*]} ]
 then
-    version="1.${tab[$patch]}"
+    if [ $bukkit != "paper"  ]
+    then
+        version="1.${tab[$patch]}."
+    else
+        version="1.${tab[$patch]}"
+    fi
 elif [ $patch == 0 ]
 then
     choose_bukkit
@@ -96,4 +103,5 @@ mv file-mc/minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".s
 #Change owner folder minecraft
 chown -R minecraft: /opt/minecraft/
 chown -R minecraft: /home/minecraft/
+COMMENT
 
