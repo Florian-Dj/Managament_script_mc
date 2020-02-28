@@ -1,16 +1,13 @@
-![Repo Size](https://img.shields.io/github/repo-size/Mucral/Managament_script_mc?color=yellow&logo=github)
-![Platform](https://img.shields.io/conda/pn/conda-forge/bash?color=green)
-[![Discord](https://img.shields.io/discord/252008610043789312?logo=discord&label=discord&color=7289da)](https://discordapp.com/channels/252008610043789312)
-[![Twitch](https://img.shields.io/twitch/status/mucral_tv?logo=twitch&color=9147ff)](https://www.twitch.tv/mucral_tv)
+![Repo Size](https://img.shields.io/github/repo-size/Mucral/Managament_script_mc?color=yellow&logo=github&style=plastic)
+![Platform](https://img.shields.io/conda/pn/conda-forge/bash?color=green&style=plastic)
+
+[![Discord](https://img.shields.io/discord/252008610043789312?logo=discord&label=discord&color=7289da&style=plastic))](https://discordapp.com/channels/252008610043789312)
+[![Twitch](https://img.shields.io/twitch/status/mucral_tv?logo=twitch&color=9147fftyle=plastic)](https://www.twitch.tv/mucral_tv)
 [![Twitter](https://img.shields.io/twitter/follow/mucral?color=1da1f2&label=twitter&logo=twitter&style=plastic)](https://twitter.com/Mucral)
 <h1 align="center">Management Server Minecraft</h1>
 <p align="center">Install a Minecraft server on VM</p>
 
 ## Getting Started
-
-### Prerequisites
- - OS : Debian/Ubuntu/Centos
- - Langage : Shell
 
 ### Installing VM
 ```
