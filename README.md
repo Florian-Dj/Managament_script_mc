@@ -1,6 +1,6 @@
 ![Repo Size](https://img.shields.io/github/repo-size/Mucral/Managament_script_mc?color=yellow&logo=github)
 [![Discord](https://img.shields.io/discord/252008610043789312?logo=discord&label=discord&color=7289da)](https://discordapp.com/channels/252008610043789312)
-[![Twitch](https://img.shields.io/twitch/status/mucral_tv?color=purple&logo=twitch&color=9147ff)](https://www.twitch.tv/mucral_tv)
+[![Twitch](https://img.shields.io/twitch/status/mucral_tv?logo=twitch&color=9147ff)](https://www.twitch.tv/mucral_tv)
 [![Twitter](https://img.shields.io/twitter/url?label=twitter&url=https%3A%2F%2Ftwitter.com%2FMucral)](https://twitter.com/Mucral)
 <h1 align="center">Management Server Minecraft</h1>
 <p align="center">Install a Minecraft server on VM</p>
