@@ -51,22 +51,27 @@ esac
 choose_version() {
 echo -e "Choose Version for $1: \n"
 
-# While for version bukkit echo
-u=1
-for i in `seq $(($1[0])) $(($1[1]))`
-do
-    echo "$u - 1.${i}.$(($1_version[$u-1]))"
-    ((u++))
-done
-echo "0 - Back"
-echo -e
-
 # While for version bukkit in list
 tab=()
 for i in `seq 1 $(($1[1]-$1[0]+1))`
 do
      tab[$i]=$(($1[0]+$i-1))
 done
+
+# While for version bukkit echo
+u=1
+for i in `seq $(($1[0])) $(($1[1]))`
+do
+    if [ $bukkit != "paper" ]
+    then
+        echo "$u - 1.${i}.$(($1_version[$u-1]))"
+    else
+        echo "$u - 1.${i}"
+    fi
+    ((u++))
+done
+echo "0 - Back"
+echo -e
 
 # Read for version bukkit
 read -p 'Patch server: ' patch
@@ -102,13 +107,13 @@ mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
 echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
 
 # Copy/Paste, mc-run.sh and eula.txt
-cp file-mc/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
-cp file-mc/eula.txt /opt/minecraft/instances/$name/eula.txt
+cp file-srv/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
+cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
 
 # Copy/Pasten change variable and move minecraft.service
-cp file-mc/minecraft-template.service file-mc/minecraft-"$name".service
-sed -i "s/srv-name/$name/g" file-mc/minecraft-"$name".service
-mv file-mc/minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".service
+cp file-srv/minecraft-template.service file-srv/minecraft-"$name".service
+sed -i "s/srv-name/$name/g" file-srv/minecraft-"$name".service
+mv file-srv/minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".service
 
 #Change owner folder minecraft
 chown -R minecraft: /opt/minecraft/
