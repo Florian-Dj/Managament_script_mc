@@ -1,14 +1,13 @@
-<h1 align="center">Management Server Mc</h1>
-<p align="center">Installation d'un serveur Mc sur une machine Virtuel <br />
-Gestion des versions via le site <a html="https://papermc.io">Papermc.io</a></p>
+<h1 align="center">Management Server Minecraft</h1>
+<p align="center">Install a Minecraft server on VM</p>
 
 ## Getting Started
 
 ### Prerequisites
- - OS : Debin/Ubuntu/Centos
+ - OS : Debian/Ubuntu/Centos
  - Langage : Shell
 
-### Installing Via [GitHub](https://github.com/Mucral/Managament_script_mc)
+### Installing VM
 ```
 $ [apt yum] install wget java screen git -y
 $ useradd minecraft --home /home/minecraft --shell /bin/bash
