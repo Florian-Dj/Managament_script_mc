@@ -97,7 +97,7 @@ else
 fi
 }
 
-# Launch function choose_bukkit
+# Start function choose_bukkit
 choose_bukkit
 
 echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
@@ -119,7 +119,3 @@ cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
 cp file-srv/management-template.sh file-srv/management-"$name".sh
 sed -i "s/name/$name/g" file-srv/management-"$name".sh
 mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
-
-# Change owner folder minecraft on /opt/minecraft and /home/minecraft
-chown -R minecraft: /opt/minecraft/instances
-chown -R minecraft: /home/minecraft/instances

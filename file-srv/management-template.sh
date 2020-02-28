@@ -34,4 +34,9 @@ case $choose in
     *)  mng_srv;;
 esac
 }
-mng_srv
+if [ "$(whoami)" == "minecraft" ]
+then
+    mng_srv
+else
+    echo "Permision denied ! Connect to minecraft user !"
+fi
