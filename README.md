@@ -1,4 +1,4 @@
-[![Repo Size](https://img.shields.io/github/repo-size/Mucral/Managament_script_mc?color=yellow&logo=github)]
+![Repo Size](https://img.shields.io/github/repo-size/Mucral/Managament_script_mc?color=yellow&logo=github)
 
 <h1 align="center">Management Server Minecraft</h1>
 <p align="center">Install a Minecraft server on VM</p>
