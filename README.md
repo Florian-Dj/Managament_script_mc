@@ -1,4 +1,5 @@
 ![Repo Size](https://img.shields.io/github/repo-size/Mucral/Managament_script_mc?color=yellow&logo=github)
+[![Discord](https://img.shields.io/discord/252008610043789312?logo=discord)](https://discordapp.com/channels/252008610043789312)
 
 <h1 align="center">Management Server Minecraft</h1>
 <p align="center">Install a Minecraft server on VM</p>
