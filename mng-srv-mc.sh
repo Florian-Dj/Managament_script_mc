@@ -116,9 +116,9 @@ cp file-srv/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
 cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
 
 # Copy/Paste management-template.sh
-cp management-template.sh management-"$name".sh
-sed -i "s/name/$name/g" management-"$name".sh
-mv management-"$name".sh /home/minecraft/instances/management-"$name".sh
+cp file-srv/management-template.sh file-srv/management-"$name".sh
+sed -i "s/name/$name/g" file-srv/management-"$name".sh
+mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
 
 # Change owner folder minecraft on /opt/minecraft and /home/minecraft
 chown -R minecraft: /opt/minecraft/instances
