@@ -1,10 +1,11 @@
 <h1 align="center">Management Server Mc</h1>
 <p align="center">Installation d'un serveur Mc sur une machine Virtuel <br />
-Gestion des versions via le site [Papermc.io](https://papermc.io)</p>
+Gestion des versions via le site <a html="https://papermc.io">Papermc.io</a></p>
 
 ## Getting Started
 
 ### Prerequisites
+ - OS : Debin/Ubuntu/Centos
  - Langage : Shell
 
 ### Installing Via [GitHub](https://github.com/Mucral/Managament_script_mc)
@@ -17,13 +18,13 @@ $ mkdir -p /opt/minecraft/instances
 $ chown -R minecraft: /opt/minecraft
 $ git clone https://github.com/Mucral/Managament_script_mc.git
 $ cd YourFolder
-$ ./management_script_mc.sh
+$ ./mng-srv-mc.sh
 ```
 or
 ```
 $ ./init.sh
 $ cd YourFolder
-$ ./management_script_mc.sh
+$ ./mng-srv-mc.sh
 ```
 <!---
 #### Running Locally Via [Github](https://github.com/YourUser/YourProject) (no install)

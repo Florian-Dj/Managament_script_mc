@@ -24,13 +24,16 @@ Choose Bukkit :
 read -p "Bukkit server: " bukkit
 case $bukkit in
     1)	url="https://cdn.getbukkit.org/spigot/spigot-version.jar"
-	choose_version "spigot"
+	support="spigot"
+        choose_version $support
 	;;
     2)	url="https://cdn.getbukkit.org/craftbukkit/craftbukkit-version.jar"
-	choose_version "craftbukkit"
+	support="craftbukkit"
+        choose_version $support
 	;;
     3)	url="https://papermc.io/api/v1/paper/version/latest/download"
-	choose_version "paper"
+        support="paper"
+	choose_version $support
 	;;
     4)  read -p "Your Link java-server.jar: " link
 	url=$link
@@ -46,8 +49,8 @@ echo -e "Choose Version for $1: \n"
 u=1
 for i in `seq $(($1[0])) $(($1[1]))`
 do
-	echo "$u - 1.${i}.$(($1_version[$u-1]))"
-	((u++))
+    echo "$u - 1.${i}.$(($1_version[$u-1]))"
+    ((u++))
 done
 echo "0 - Back"
 echo -e
@@ -57,9 +60,7 @@ for i in `seq 1 $(($1[1]-$1[0]+1))`
 do
      tab[$i]=$(($1[0]+$i-1))
 done
-}
-choose_bukkit
-<<COMMENT
+
 read -p 'Patch server: ' patch
 if [ 1 -le $patch ] && [ $patch -le ${#tab[*]} ]
 then
@@ -80,7 +81,7 @@ fi
 #Launch function choose_bukkit
 choose_bukkit
 
-echo "Minecraft Server $name $version Download on /opt/minecraft/instances/$name !"
+echo "Minecraft Server $name $support $version Download on /opt/minecraft/instances/$name !"
 
 # Create folder projet on /opt
 mkdir /opt/minecraft/instances/$name
@@ -103,5 +104,3 @@ mv file-mc/minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".s
 #Change owner folder minecraft
 chown -R minecraft: /opt/minecraft/
 chown -R minecraft: /home/minecraft/
-COMMENT
-
