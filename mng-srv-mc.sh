@@ -10,7 +10,7 @@ url=""
 # Choose Project Name
 read -p 'Project Name: ' name
 
-# Choose Bukkit (Spigot, Craftbukkit or Papermc)
+# Function choose Bukkit (Spigot, Craftbukkit or Papermc)
 choose_bukkit() {
 echo """
 Choose Bukkit :
@@ -21,20 +21,25 @@ Choose Bukkit :
 4 - Other
 """
 
-read -p "Bukkit server: " bukkit
-case $bukkit in
+# Read bukkit 1-4 or reboot
+read -p "Bukkit server: " choose
+case $choose in
+    #choose spigot
     1)	url="https://cdn.getbukkit.org/spigot/spigot-version.jar"
-	support="spigot"
-        choose_version $support
+	bukkit="spigot"
+        choose_version $bukkit
 	;;
+    #choose craftbukkit
     2)	url="https://cdn.getbukkit.org/craftbukkit/craftbukkit-version.jar"
-	support="craftbukkit"
-        choose_version $support
+	bukkit="craftbukkit"
+        choose_version $bukkit
 	;;
+    #choose papermc
     3)	url="https://papermc.io/api/v1/paper/version/latest/download"
-        support="paper"
-	choose_version $support
+        bukkit="paper"
+	choose_version $bukkit
 	;;
+    #choose other bukkit
     4)  read -p "Your Link java-server.jar: " link
 	url=$link
 	;;
@@ -46,6 +51,7 @@ esac
 choose_version() {
 echo -e "Choose Version for $1: \n"
 
+# While for version bukkit echo
 u=1
 for i in `seq $(($1[0])) $(($1[1]))`
 do
@@ -55,18 +61,21 @@ done
 echo "0 - Back"
 echo -e
 
+# While for version bukkit in list
 tab=()
 for i in `seq 1 $(($1[1]-$1[0]+1))`
 do
      tab[$i]=$(($1[0]+$i-1))
 done
 
+# Read for version bukkit
 read -p 'Patch server: ' patch
+#if patch>=1 and <=len(tab)
 if [ 1 -le $patch ] && [ $patch -le ${#tab[*]} ]
 then
-    if [ $bukkit != "paper"  ]
+    if [ $bukkit != "paper" ]
     then
-        version="1.${tab[$patch]}."
+        version="1.${tab[$patch]}.$(($1_version[$patch-1]))"
     else
         version="1.${tab[$patch]}"
     fi
@@ -81,7 +90,7 @@ fi
 #Launch function choose_bukkit
 choose_bukkit
 
-echo "Minecraft Server $name $support $version Download on /opt/minecraft/instances/$name !"
+echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
 
 # Create folder projet on /opt
 mkdir /opt/minecraft/instances/$name
