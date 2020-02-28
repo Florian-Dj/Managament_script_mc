@@ -1,11 +1,11 @@
 #!/bin/bash
 
+#Var for spigot, craftbukkit and paper version and under version
 spigot=(4 15)
 spigot_version=(7 2 4 10 8 4 2 2 2 2 4 2)
 craftbukkit=(0 15)
 craftbukkit_version=(0 1 5 2 7 2 4 10 8 4 2 2 2 2 4 2)
 paper=(12 15)
-url=""
 
 # Choose Project Name
 read -p 'Project Name: ' name
@@ -21,7 +21,7 @@ Choose Bukkit :
 4 - Other
 """
 
-# Read bukkit 1-4 or reboot
+# Read for choose bukkit
 read -p "Bukkit server: " choose
 case $choose in
     #choose spigot
@@ -43,6 +43,7 @@ case $choose in
     4)  read -p "Your Link java-server.jar: " link
 	url=$link
 	;;
+    #reboot function choose Bukkit (Spigot, Craftbukkit or Papermc)
     *) choose_bukkit;;
 esac
 }
@@ -62,6 +63,7 @@ done
 u=1
 for i in `seq $(($1[0])) $(($1[1]))`
 do
+    #if bukkit different from paper echo under_version or not
     if [ $bukkit != "paper" ]
     then
         echo "$u - 1.${i}.$(($1_version[$u-1]))"
@@ -78,6 +80,7 @@ read -p 'Patch server: ' patch
 #if patch>=1 and <=len(tab)
 if [ 1 -le $patch ] && [ $patch -le ${#tab[*]} ]
 then
+    #if bukkit different from paper version=1.version.under_version or just 1.version
     if [ $bukkit != "paper" ]
     then
         version="1.${tab[$patch]}.$(($1_version[$patch-1]))"
@@ -86,8 +89,10 @@ then
     fi
 elif [ $patch == 0 ]
 then
+    #reboot choose version minecraft server
     choose_bukkit
 else
+    #back to function choose Bukkit (Spigot, Craftbukkit or Papermc)
     choose_version $1
 fi
 }
@@ -115,6 +120,6 @@ cp file-srv/minecraft-template.service file-srv/minecraft-"$name".service
 sed -i "s/srv-name/$name/g" file-srv/minecraft-"$name".service
 mv file-srv/minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".service
 
-#Change owner folder minecraft
-chown -R minecraft: /opt/minecraft/
-chown -R minecraft: /home/minecraft/
+#Change owner folder minecraft on /opt/minecraft and /home/minecraft
+chown -R minecraft: /opt/minecraft/instances
+chown -R minecraft: /home/minecraft/instances
