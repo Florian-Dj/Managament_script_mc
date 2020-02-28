@@ -97,7 +97,7 @@ else
 fi
 }
 
-#Launch function choose_bukkit
+# Launch function choose_bukkit
 choose_bukkit
 
 echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
@@ -115,11 +115,11 @@ echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$na
 cp file-srv/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
 cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
 
-# Copy/Pasten change variable and move minecraft.service
-cp file-srv/minecraft-template.service file-srv/minecraft-"$name".service
-sed -i "s/srv-name/$name/g" file-srv/minecraft-"$name".service
-mv file-srv/minecraft-"$name".service /usr/lib/systemd/system/minecraft-"$name".service
+# Copy/Paste management-template.sh
+cp management-template.sh management-"$name".sh
+sed -i "s/name/$name/g" management-"$name".sh
+mv management-"$name".sh /home/minecraft/instances/management-"$name".sh
 
-#Change owner folder minecraft on /opt/minecraft and /home/minecraft
+# Change owner folder minecraft on /opt/minecraft and /home/minecraft
 chown -R minecraft: /opt/minecraft/instances
 chown -R minecraft: /home/minecraft/instances
