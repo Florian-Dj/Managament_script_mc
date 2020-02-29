@@ -10,22 +10,17 @@
 
 ## Getting Started
 
-### Installing VM
+### Installing VM on root
 ```
 $ [apt yum] install wget java screen git -y
 $ useradd minecraft --home /home/minecraft --shell /bin/bash
-$ mkdir /home/minecraft/instances
-$ chown -R minecraft: /home/minecraft
+$ passwd minecraft (and enter password for minecraft user)
 $ mkdir -p /opt/minecraft/instances
 $ chown -R minecraft: /opt/minecraft
+$ su - minecraft
+$ mkdir ~/instances
+$ cd ~/instances
 $ git clone https://github.com/Mucral/Managament_script_mc.git
-$ cd YourFolder
-$ ./mng-srv-mc.sh
-```
-or
-```
-$ ./init.sh
-$ cd YourFolder
 $ ./mng-srv-mc.sh
 ```
 <!---
