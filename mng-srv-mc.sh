@@ -1,8 +1,26 @@
 #!/bin/bash
 
 # Choose Project Name
+name_server (){
 read -p 'Project Name: ' name
+if [ -z $name ]
+then
+    name_server
+else
+    other
+fi
+}
 
+if [ -z $1 ]
+then
+    name_server
+else
+    echo "No settings! Delete $1"
+    exit
+fi
+
+
+<< COMMENT
 echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
 
 # Create folder projet on /opt
@@ -22,3 +40,4 @@ cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
 cp file-srv/management-template.sh file-srv/management-"$name".sh
 sed -i "s/name/$name/g" file-srv/management-"$name".sh
 mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
+COMMENT
