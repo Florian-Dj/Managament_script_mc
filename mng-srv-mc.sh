@@ -1,13 +1,15 @@
 #!/bin/bash
 
+# Check pull request http
 request_http() {
-request_cmd="$(curl -i -o - --silent -X GET --header 'Accept: application/json' --header 'Authorization: _your_auth_code==' 'https://papermc.io/legacy')"
+echo $1
+request_cmd="$(curl -i -o - --silent -X GET --header 'Accept: application/json' --header 'Authorization: _your_auth_code==' $1)"
 http_status=$(echo "$request_cmd" | grep HTTP |  awk '{print $2}')
 if [ $http_status == "200" ]
 then
     echo "Ok"
 else
-    echo "Error, server Web not found"
+    echo "Error, server web not found"
 fi
 }
 
@@ -21,15 +23,30 @@ Bukkit Support :
 4 - Vanilla
 5 - Other
 '
+
+read -p 'Chosse Bukkit Support: ' bukkit
+case $bukkit in
+    1)	url="https://papermc.io/legacy"
+	request_bukkit $url;;
+    2)	url=""
+	request_bukkit $url;;
+    3)	url=""
+	request_bukkit $url;;
+    4)	url=""
+	request_bukkit $url;;
+    5)  read -p "Your link: " $link_other
+	request_bukkit $url;;
+    *)	bukkit_support;;
+esac
 }
 
 # Choose Project Name
-name_server() {
-read -p 'Project Name: ' name
-if [ -z $name ]
+choose_name_server() {
+read -p 'Project Name: ' name_server
+if [ -z $name_server ]
 then
     echo -e "Enter name server!"
-    name_server
+    choose_name_server
 else
     bukkit_support
 fi
@@ -37,7 +54,7 @@ fi
 
 if [ -z $1 ]
 then
-    name_server
+    choose_name_server
 else
     echo "No settings! Delete $1"
     exit
