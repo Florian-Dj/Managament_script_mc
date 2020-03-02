@@ -1,13 +1,37 @@
 #!/bin/bash
 
+request_http() {
+request_cmd="$(curl -i -o - --silent -X GET --header 'Accept: application/json' --header 'Authorization: _your_auth_code==' 'https://papermc.io/legacy')"
+http_status=$(echo "$request_cmd" | grep HTTP |  awk '{print $2}')
+if [ $http_status == "200" ]
+then
+    echo "Ok"
+else
+    echo "Error, server Web not found"
+fi
+}
+
+# Choose bukkit support
+bukkit_support() {
+echo '
+Bukkit Support :
+1 - Spigot
+2 - Craftbukkit
+3 - Papermc
+4 - Vanilla
+5 - Other
+'
+}
+
 # Choose Project Name
-name_server (){
+name_server() {
 read -p 'Project Name: ' name
 if [ -z $name ]
 then
+    echo -e "Enter name server!"
     name_server
 else
-    other
+    bukkit_support
 fi
 }
 
@@ -18,7 +42,6 @@ else
     echo "No settings! Delete $1"
     exit
 fi
-
 
 << COMMENT
 echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
