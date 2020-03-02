@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check pull request http
-request_http() {
+request_https() {
 echo $1
 request_cmd="$(curl -i -o - --silent -X GET --header 'Accept: application/json' --header 'Authorization: _your_auth_code==' $1)"
 http_status=$(echo "$request_cmd" | grep HTTP |  awk '{print $2}')
@@ -26,16 +26,16 @@ Bukkit Support :
 
 read -p 'Chosse Bukkit Support: ' bukkit
 case $bukkit in
-    1)	url="https://papermc.io/legacy"
-	request_bukkit $url;;
-    2)	url=""
-	request_bukkit $url;;
-    3)	url=""
-	request_bukkit $url;;
-    4)	url=""
-	request_bukkit $url;;
+    1)	url="https://getbukkit.org/download/spigot"
+	request_https $url;;
+    2)	url="https://getbukkit.org/download/craftbukkit"
+	request_https $url;;
+    3)	url="https://papermc.io/ci/rssLatest"
+	request_https $url;;
+    4)	url="https://getbukkit.org/download/vanilla"
+	request_https $url;;
     5)  read -p "Your link: " $link_other
-	request_bukkit $url;;
+	request_https $url;;
     *)	bukkit_support;;
 esac
 }
