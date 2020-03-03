@@ -8,8 +8,9 @@ http_status=$(echo "$request_cmd" | grep HTTP |  awk '{print $2}')
 if [ $http_status == "200" ]
 then
     echo "Ok"
+    echo "$(echo "$request_cmd" | grep -oP '1\.[0-9]{1,2}\.[0-9]{1,2}')" 
 else
-    echo "Error, server web not found"
+    echo "Error $http_status, server web not found"
 fi
 }
 

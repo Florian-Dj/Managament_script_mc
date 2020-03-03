@@ -12,7 +12,7 @@
 
 ### Installing VM on root
 ```
-$ [apt yum] install wget java screen git -y
+$ [apt yum] install curl java screen git -y
 $ useradd minecraft --home /home/minecraft --shell /bin/bash
 $ passwd minecraft (and enter password for minecraft user)
 $ mkdir -p /opt/minecraft/instances
