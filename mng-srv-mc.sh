@@ -2,13 +2,17 @@
 
 # Check pull request http
 request_https() {
-echo $1
 request_cmd="$(curl -i -o - --silent -X GET --header 'Accept: application/json' --header 'Authorization: _your_auth_code==' $1)"
 http_status=$(echo "$request_cmd" | grep HTTP |  awk '{print $2}')
 if [ $http_status == "200" ]
 then
-    echo "Ok"
-    echo "$(echo "$request_cmd" | grep -oP '1\.[0-9]{1,2}\.[0-9]{1,2}')" 
+    table_version_bukkit="$(echo "$request_cmd" | grep -oP '<h2>1\.[0-9]{1,2}\.[0-9]{1,2}' | cut -c5-11)"
+    number=1
+    for version in $table_version_bukkit
+    do
+        echo "$number - $version"
+	((number++))
+    done
 else
     echo "Error $http_status, server web not found"
 fi
