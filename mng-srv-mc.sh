@@ -1,12 +1,20 @@
 #!/bin/bash
 
+url=""
+bukkit=""
+
 # Check pull request http
 request_https() {
-request_cmd="$(curl -i -o - --silent -X GET --header 'Accept: application/json' --header 'Authorization: _your_auth_code==' $1)"
+request_cmd="$(curl -i -o - --silent -X GET --header 'Accept: application/json' --header 'Authorization: _your_auth_code==' $url)"
 http_status=$(echo "$request_cmd" | grep HTTP |  awk '{print $2}')
 if [ $http_status == "200" ]
 then
-    table_version_bukkit="$(echo "$request_cmd" | grep -oP '<h2>1\.[0-9]{1,2}\.[0-9]{1,2}' | cut -c5-11)"
+    if [ $bukkit != "papermc" ]
+    then
+	table_version_bukkit="$(echo "$request_cmd" | grep -oP '<h2>1\.[0-9]{1,2}\.[0-9]{1,2}' | cut -c5-11)"
+    else
+	table_version_bukkit="$(echo "$request_cmd" | grep -oP '1\.[0-9]{1,2}\.[0-9]{1,2}')"
+    fi
     number=1
     for version in $table_version_bukkit
     do
@@ -29,18 +37,22 @@ Bukkit Support :
 5 - Other
 '
 
-read -p 'Chosse Bukkit Support: ' bukkit
-case $bukkit in
+read -p 'Chosse Bukkit Support: ' number_bukkit
+case $number_bukkit in
     1)	url="https://getbukkit.org/download/spigot"
-	request_https $url;;
+	bukkit="spigot"
+	request_https;;
     2)	url="https://getbukkit.org/download/craftbukkit"
-	request_https $url;;
+	bukkit=""craftbukkit
+	request_https;;
     3)	url="https://papermc.io/ci/rssLatest"
-	request_https $url;;
+	bukkit="papermc"
+	request_https;;
     4)	url="https://getbukkit.org/download/vanilla"
-	request_https $url;;
-    5)  read -p "Your link: " $link_other
-	request_https $url;;
+	bukkit="vanilla"
+	request_https;;
+    5)  read -p "Your link: " $url
+	request_https;;
     *)	bukkit_support;;
 esac
 }
