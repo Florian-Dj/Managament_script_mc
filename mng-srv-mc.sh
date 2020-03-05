@@ -4,6 +4,8 @@ url=""			#var for url check
 bukkit=""		#var bukkit support (spigot, crafbukkit, paper, vanilla)
 table_version_bukkit=""	#all version for support
 
+
+# Function echo all version bukkit support
 choose_version(){
 number=1
 for version in $table_version_bukkit
@@ -22,9 +24,9 @@ if [ $http_status == "200" ]
 then
     if [ $bukkit != "papermc" ]
     then
-	table_version_bukkit="$(echo "$request_cmd" | grep -oP '<h2>1\.[0-9]{1,2}\.[0-9]{1,2}' | cut -c5-11)"
+	table_version_bukkit="$(echo "$request_cmd" | grep -oP '<h2>1\.\d+\.\d+' | cut -c5-11)"
     else
-	table_version_bukkit="$(echo "$request_cmd" | grep -oP '1\.[0-9]{1,2}\.[0-9]{1,2}')"
+	table_version_bukkit="$(echo "$request_cmd" | grep -oP '1\.\d+\.\d+')"
     fi
     choose_version
 else
@@ -90,7 +92,6 @@ echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instanc
 mkdir /opt/minecraft/instances/$name
 
 # Download java-server.jar and move
-url=${url/version/$version}
 wget -O java-server.jar $url
 mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
 echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
