@@ -1,7 +1,18 @@
 #!/bin/bash
 
-url=""
-bukkit=""
+url=""			#var for url check
+bukkit=""		#var bukkit support (spigot, crafbukkit, paper, vanilla)
+table_version_bukkit=""	#all version for support
+
+choose_version(){
+number=1
+for version in $table_version_bukkit
+do
+   echo "$number - $version"
+   ((number++))
+done
+}
+
 
 # Check pull request http
 request_https() {
@@ -15,12 +26,7 @@ then
     else
 	table_version_bukkit="$(echo "$request_cmd" | grep -oP '1\.[0-9]{1,2}\.[0-9]{1,2}')"
     fi
-    number=1
-    for version in $table_version_bukkit
-    do
-        echo "$number - $version"
-	((number++))
-    done
+    choose_version
 else
     echo "Error $http_status, server web not found"
 fi
