@@ -1,32 +1,38 @@
 #!/bin/bash
 
-url=""			#var for url check
-bukkit=""		#var bukkit support (spigot, crafbukkit, paper, vanilla)
-table_version_bukkit=""	#all version for support
-
+name=""			#set name variable
+url_request=""		#set for url request bukkit version
+url_download=""		#set url download version bukkit support
+bukkit=""		#set bukkit support (spigot, crafbukkit, paper, vanilla)
+table_version_bukkit=""	#set all version for support
+bukkit_version=()
+bukkit_under_version=()
 
 # Function echo all version bukkit support
 choose_version(){
-number=1
 for version in $table_version_bukkit
 do
-   echo "$number - $version"
-   ((number++))
+    under_version=$(echo "$version" | grep -oP '1\.\d+')
+    if !(echo "$under_version" | fgrep -wq -e "$bukkit_version")
+    then
+	bukkit_under_version=("${bukkit_under_version[@]}" $version)
+	bukkit_version=($under_version "${bukkit_version[@]}")
+    fi
 done
+echo "Test : ${bukkit_under_version[*]}"
 }
-
 
 # Check pull request http
 request_https() {
-request_cmd="$(curl -i -o - --silent -X GET --header 'Accept: application/json' --header 'Authorization: _your_auth_code==' $url)"
-http_status=$(echo "$request_cmd" | grep HTTP |  awk '{print $2}')
+request_url="$(curl -i -o - --silent -X GET $url_request)"
+http_status=$(echo "$request_url" | grep HTTP |  awk '{print $2}')
 if [ $http_status == "200" ]
 then
     if [ $bukkit != "papermc" ]
     then
-	table_version_bukkit="$(echo "$request_cmd" | grep -oP '<h2>1\.\d+\.\d+' | cut -c5-11)"
+	table_version_bukkit="$(echo "$request_url" | grep -oP '<h2>1\.\d+\.\d+' | cut -c5-11)"
     else
-	table_version_bukkit="$(echo "$request_cmd" | grep -oP '1\.\d+\.\d+')"
+	table_version_bukkit="$(echo "$request_url" | grep -oP '1\.\d+\.\d+')"
     fi
     choose_version
 else
@@ -47,19 +53,20 @@ Bukkit Support :
 
 read -p 'Chosse Bukkit Support: ' number_bukkit
 case $number_bukkit in
-    1)	url="https://getbukkit.org/download/spigot"
+    1)	url_request="https://getbukkit.org/download/spigot"
 	bukkit="spigot"
 	request_https;;
-    2)	url="https://getbukkit.org/download/craftbukkit"
+    2)	url_request="https://getbukkit.org/download/craftbukkit"
 	bukkit=""craftbukkit
 	request_https;;
-    3)	url="https://papermc.io/ci/rssLatest"
+    3)	url_request="https://papermc.io/ci/rssLatest"
 	bukkit="papermc"
 	request_https;;
-    4)	url="https://getbukkit.org/download/vanilla"
+    4)	url_request="https://getbukkit.org/download/vanilla"
 	bukkit="vanilla"
 	request_https;;
-    5)  read -p "Your link: " $url
+    5)  read -p "Your link: " $url_request
+	bukkit="other"
 	request_https;;
     *)	bukkit_support;;
 esac
@@ -73,10 +80,12 @@ then
     echo -e "Enter name server!"
     choose_name_server
 else
+    name="$name_server"
     bukkit_support
 fi
 }
 
+# Check setting is set to launch script
 if [ -z $1 ]
 then
     choose_name_server
