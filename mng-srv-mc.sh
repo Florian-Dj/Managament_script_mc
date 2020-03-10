@@ -8,15 +8,25 @@ table_version_bukkit=""	#set all version for support
 bukkit_version=()	#set list all version
 bukkit_under_version=()	#set list all under_version
 
-# Function echo all version bukkit support
+# Echo under_version for bukkit support
+choose_version(){
+u=1
+for version in ${bukkit_under_version[*]}
+do
+    echo "$u - $version"
+    ((u++))
+done
+}
+
+# List all version and all under_version
 list_version(){
 for version in $table_version_bukkit
 do
     under_version=$(echo "$version" | grep -oP '1\.\d+')
-    if !(echo "$under_version" | fgrep -wq -e "$bukkit_version")
+    if ! [[ ${bukkit_version[*]} =~ (^|[[:space:]])"$under_version"($|[[:space:]]) ]]
     then
 	bukkit_under_version=("${bukkit_under_version[@]}" $version)
-	bukkit_version=($under_version "${bukkit_version[@]}")
+	bukkit_version=("${bukkit_version[@]}" $under_version)
     fi
 done
 choose_version
