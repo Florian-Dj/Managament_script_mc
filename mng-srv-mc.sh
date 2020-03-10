@@ -5,11 +5,11 @@ url_request=""		#set for url request bukkit version
 url_download=""		#set url download version bukkit support
 bukkit=""		#set bukkit support (spigot, crafbukkit, paper, vanilla)
 table_version_bukkit=""	#set all version for support
-bukkit_version=()
-bukkit_under_version=()
+bukkit_version=()	#set list all version
+bukkit_under_version=()	#set list all under_version
 
 # Function echo all version bukkit support
-choose_version(){
+list_version(){
 for version in $table_version_bukkit
 do
     under_version=$(echo "$version" | grep -oP '1\.\d+')
@@ -19,7 +19,7 @@ do
 	bukkit_version=($under_version "${bukkit_version[@]}")
     fi
 done
-echo "Test : ${bukkit_under_version[*]}"
+choose_version
 }
 
 # Check pull request http
@@ -34,7 +34,7 @@ then
     else
 	table_version_bukkit="$(echo "$request_url" | grep -oP '1\.\d+\.\d+')"
     fi
-    choose_version
+    list_version
 else
     echo "Error $http_status, server web not found"
 fi
