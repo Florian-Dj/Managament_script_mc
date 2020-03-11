@@ -8,6 +8,24 @@ table_version_bukkit=""	#set all version for support
 bukkit_version=()	#set list all version
 bukkit_under_version=()	#set list all under_version
 
+server_script(){
+echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
+# Create folder projet on /opt
+mkdir /opt/minecraft/instances/$name
+# Download java-server.jar and move
+wget -O java-server.jar $url
+mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
+echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
+# Copy/Paste, mc-run.sh and eula.txt
+cp file-srv/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
+cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
+# Copy/Paste management-template.sh
+cp file-srv/management-template.sh file-srv/management-"$name".sh
+sed -i "s/name/$name/g" file-srv/management-"$name".sh
+mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
+}
+
+
 # Echo under_version for bukkit support
 choose_version(){
 u=1
@@ -16,7 +34,16 @@ do
     echo "$u - $version"
     ((u++))
 done
+echo "0 - Back"
+
+read -p "Choose version bukkit support: " choose
+case $choose in
+    1)	echo "Hello ${bukkit_under_version[0]}";;
+    0)	bukkit_support;;
+    *)	echo "Rien";;
+esac
 }
+
 
 # List all version and all under_version
 list_version(){
@@ -31,6 +58,7 @@ do
 done
 choose_version
 }
+
 
 # Check pull request http
 request_https() {
@@ -49,6 +77,7 @@ else
     echo "Error $http_status, server web not found"
 fi
 }
+
 
 # Choose bukkit support
 bukkit_support() {
@@ -82,6 +111,7 @@ case $number_bukkit in
 esac
 }
 
+
 # Choose Project Name
 choose_name_server() {
 read -p 'Project Name: ' name_server
@@ -95,6 +125,7 @@ else
 fi
 }
 
+
 # Check setting is set to launch script
 if [ -z $1 ]
 then
@@ -104,23 +135,3 @@ else
     exit
 fi
 
-<< COMMENT
-echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
-
-# Create folder projet on /opt
-mkdir /opt/minecraft/instances/$name
-
-# Download java-server.jar and move
-wget -O java-server.jar $url
-mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
-echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
-
-# Copy/Paste, mc-run.sh and eula.txt
-cp file-srv/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
-cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
-
-# Copy/Paste management-template.sh
-cp file-srv/management-template.sh file-srv/management-"$name".sh
-sed -i "s/name/$name/g" file-srv/management-"$name".sh
-mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
-COMMENT
