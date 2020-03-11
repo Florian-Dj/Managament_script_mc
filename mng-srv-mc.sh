@@ -10,6 +10,7 @@ bukkit_under_version=()	#set list all under_version
 
 server_script(){
 echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
+<<COMMENT
 # Create folder projet on /opt
 mkdir /opt/minecraft/instances/$name
 # Download java-server.jar and move
@@ -23,30 +24,39 @@ cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
 cp file-srv/management-template.sh file-srv/management-"$name".sh
 sed -i "s/name/$name/g" file-srv/management-"$name".sh
 mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
+COMMENT
 }
 
 
 # Echo under_version for bukkit support
 choose_version(){
-u=1
+number_choose=1
 for version in ${bukkit_under_version[*]}
 do
-    echo "$u - $version"
-    ((u++))
+    echo "$number_choose - $version"
+    ((number_choose++))
 done
 echo "0 - Back"
 
-read -p "Choose version bukkit support: " choose
+if [ ${#bukkit_under_version[*]} -le 10 ]
+then
+    test="[1-${#bukkit_under_version[*]}]"
+fi
+echo $test
+read -p "Choose version $bukkit support: " choose
 case $choose in
-    1)	echo "Hello ${bukkit_under_version[0]}";;
-    0)	bukkit_support;;
-    *)	echo "Rien";;
+    $test)	version=${bukkit_under_version[$choose-1]}
+		server_script;;
+    0)		bukkit_support;;
+    *)		choose_version;;
 esac
 }
 
 
 # List all version and all under_version
 list_version(){
+bukkit_version=()	#set list all version
+bukkit_under_version=()	#set list all under_version
 for version in $table_version_bukkit
 do
     under_version=$(echo "$version" | grep -oP '1\.\d+')
@@ -90,7 +100,7 @@ Bukkit Support :
 5 - Other
 '
 
-read -p 'Chosse Bukkit Support: ' number_bukkit
+read -p 'Choose Bukkit Support: ' number_bukkit
 case $number_bukkit in
     1)	url_request="https://getbukkit.org/download/spigot"
 	bukkit="spigot"
