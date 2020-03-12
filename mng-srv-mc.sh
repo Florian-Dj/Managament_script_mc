@@ -38,18 +38,16 @@ do
 done
 echo "0 - Back"
 
-if [ ${#bukkit_under_version[*]} -le 10 ]
-then
-    test="[1-${#bukkit_under_version[*]}]"
-fi
-echo $test
 read -p "Choose version $bukkit support: " choose
-case $choose in
-    $test)	version=${bukkit_under_version[$choose-1]}
-		server_script;;
-    0)		bukkit_support;;
-    *)		choose_version;;
-esac
+if [ $choose -ge 1 ] && [ $choose -le ${#bukkit_under_version[*]} ]
+then
+    echo "${bukkit_under_version[$choose-1]}"
+elif [ $choose -eq "0" ]
+then
+    list_version
+else
+    choose_version
+fi
 }
 
 
