@@ -1,6 +1,7 @@
 #!/bin/bash
 
 name=""			#set name variable
+version=""		#set version variable
 url_request=""		#set for url request bukkit version
 url_download=""		#set url download version bukkit support
 bukkit=""		#set bukkit support (spigot, crafbukkit, paper, vanilla)
@@ -31,9 +32,9 @@ COMMENT
 # Echo under_version for bukkit support
 choose_version(){
 number_choose=1
-for version in ${bukkit_under_version[*]}
+for versions in ${bukkit_under_version[*]}
 do
-    echo "$number_choose - $version"
+    echo "$number_choose - $versions"
     ((number_choose++))
 done
 echo "0 - Back"
@@ -41,7 +42,8 @@ echo "0 - Back"
 read -p "Choose version $bukkit support: " choose
 if [ $choose -ge 1 ] && [ $choose -le ${#bukkit_under_version[*]} ]
 then
-    echo "${bukkit_under_version[$choose-1]}"
+    version=${bukkit_under_version[$choose-1]}
+    server_script
 elif [ $choose -eq "0" ]
 then
     list_version
@@ -55,12 +57,12 @@ fi
 list_version(){
 bukkit_version=()	#set list all version
 bukkit_under_version=()	#set list all under_version
-for version in $table_version_bukkit
+for version_list in $table_version_bukkit
 do
-    under_version=$(echo "$version" | grep -oP '1\.\d+')
+    under_version=$(echo "$version_list" | grep -oP '1\.\d+')
     if ! [[ ${bukkit_version[*]} =~ (^|[[:space:]])"$under_version"($|[[:space:]]) ]]
     then
-	bukkit_under_version=("${bukkit_under_version[@]}" $version)
+	bukkit_under_version=("${bukkit_under_version[@]}" $version_list)
 	bukkit_version=("${bukkit_version[@]}" $under_version)
     fi
 done
@@ -128,7 +130,7 @@ then
     echo -e "Enter name server!"
     choose_name_server
 else
-    name="$name_server"
+    name="$(echo $name_server | tr  [A-Z] [a-z])"
     bukkit_support
 fi
 }
