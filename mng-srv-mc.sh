@@ -44,9 +44,9 @@ if [ $choose -ge 1 ] && [ $choose -le ${#bukkit_under_version[*]} ]
 then
     version=${bukkit_under_version[$choose-1]}
     server_script
-elif [ $choose -eq "0" ]
+elif [ $choose -eq 0 ]
 then
-    list_version
+    bukkit_support
 else
     choose_version
 fi
