@@ -11,11 +11,11 @@ bukkit_under_version=()	#set list all under_version
 
 server_script(){
 echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
-<<COMMENT
+<< COMMENT
 # Create folder projet on /opt
 mkdir /opt/minecraft/instances/$name
 # Download java-server.jar and move
-wget -O java-server.jar $url
+curl -0 java-server.jar $url_download
 mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
 echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
 # Copy/Paste, mc-run.sh and eula.txt
@@ -28,6 +28,20 @@ mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".s
 COMMENT
 }
 
+download_request(){
+if [ $bukkit != "papermc" ] && [ $bukkit != "other" ]
+then
+    $url_download=""
+elif [ $bukkit == "papermc" ]
+then
+    $url_download=""
+fi
+request_url="$(curl -i -o - --silent -X GET $url_download)"
+http_status=$(echo "$url_download" | grep HTTP |  awk '{print $2}')
+if [ $http_status == "200" ]
+then
+    server_script
+fi
 
 # Echo under_version for bukkit support
 choose_version(){
@@ -43,7 +57,7 @@ read -p "Choose version $bukkit support: " choose
 if [ $choose -ge 1 ] && [ $choose -le ${#bukkit_under_version[*]} ]
 then
     version=${bukkit_under_version[$choose-1]}
-    server_script
+    download_request
 elif [ $choose -eq 0 ]
 then
     bukkit_support
