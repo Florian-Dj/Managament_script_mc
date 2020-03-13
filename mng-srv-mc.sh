@@ -31,17 +31,18 @@ COMMENT
 download_request(){
 if [ $bukkit != "papermc" ] && [ $bukkit != "other" ]
 then
-    $url_download=""
+    url_download="https://cdn.getbukkit.org/$bukkit/$bukkit-$version.jar"
 elif [ $bukkit == "papermc" ]
 then
-    $url_download=""
+    url_download="https://papermc.io/api/v1/paper/$version/latest/download"
 fi
 request_url="$(curl -i -o - --silent -X GET $url_download)"
-http_status=$(echo "$url_download" | grep HTTP |  awk '{print $2}')
+http_status=$(echo "$request_url" | grep HTTP |  awk '{print $2}')
 if [ $http_status == "200" ]
 then
     server_script
 fi
+}
 
 # Echo under_version for bukkit support
 choose_version(){
