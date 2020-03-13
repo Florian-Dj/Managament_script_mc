@@ -11,11 +11,10 @@ bukkit_under_version=()	#set list all under_version
 
 server_script(){
 echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
-<< COMMENT
 # Create folder projet on /opt
 mkdir /opt/minecraft/instances/$name
 # Download java-server.jar and move
-curl -0 java-server.jar $url_download
+curl -o java-server.jar $url_download
 mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
 echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
 # Copy/Paste, mc-run.sh and eula.txt
@@ -25,7 +24,6 @@ cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
 cp file-srv/management-template.sh file-srv/management-"$name".sh
 sed -i "s/name/$name/g" file-srv/management-"$name".sh
 mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
-COMMENT
 }
 
 download_request(){
