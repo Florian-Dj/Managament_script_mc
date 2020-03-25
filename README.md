@@ -5,46 +5,62 @@
 [![Discord](https://img.shields.io/discord/252008610043789312?logo=discord&label=discord&color=7289da&style=plastic)](https://discordapp.com/channels/252008610043789312)
 [![Twitch](https://img.shields.io/twitch/status/mucral_tv?logo=twitch&color=9147ff&style=plastic)](https://www.twitch.tv/mucral_tv)
 [![Twitter](https://img.shields.io/twitter/follow/mucral?color=1da1f2&label=twitter&logo=twitter&style=plastic)](https://twitter.com/Mucral)
-<h1 align="center">Management Server Minecraft</h1>
-<p align="center">Install a Minecraft server on VM</p>
+
+# Management Server Minecraft
+Install and management multiple Minecraft server on VM, VPS, Dedicated
+
+## Requirement
+- Harware (minimal) :
+-- 2 vCore
+-- 2 Go of ram
+
+- Software :
+-- Java runtime environment
+-- Screen
+-- Curl
+-- Git
+
+Debian Family :
+```
+$ apt install curl java screen git -y
+```
+Red Hat Family :
+```
+$ yum install curl java screen git -y
+```
 
 ## Getting Started
-
-### Installing VM on root
+### Command on root
 ```
-$ [apt yum] install curl java screen git -y
 $ useradd minecraft --home /home/minecraft --shell /bin/bash
-$ passwd minecraft (and enter password for minecraft user)
+$ passwd minecraft (enter password user)
 $ mkdir -p /opt/minecraft/instances
 $ chown -R minecraft: /opt/minecraft
+```
+
+### Command on user servcie minecraft
+```
 $ su - minecraft
 $ mkdir ~/instances
-$ cd ~/instances
-$ git clone https://github.com/Mucral/Managament_script_mc.git
-$ ./mng-srv-mc.sh
+$ git clone https://github.com/Mucral/Managament_script_mc.git management
 ```
-<!---
-#### Running Locally Via [Github](https://github.com/YourUser/YourProject) (no install)
-You can run this project locally by following these steps:
-1. Clone/download the [repo](https://github.com/YourUser/YourProject)
-2. Open terminal and cd into the project
-3. Execute ```command_execution```
 
-## Using the Application
-1. Do this
-    - Precision
-2. And this
-3. And also this
+## How to start 
+```
+cd ~/management
+./mng-srv-mc.sh
+```
+Then choose bukkit support and version
 
-*Easy !*
+## How to start/stop/restart server
+```
+$ cd ~/instances
+$ ./management-nameproject.sh
+```
+Then select the desired action on the server
 
-### Configurations
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-## Video
-If you need something visual to help you get started, [I made a video for the original release of this project](https://youtu.be/YourVideo); some things may be different but the same concepts still apply.
-
-## Issues Using the Tool
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
--->
-
+## Where to find server files
+```
+$ cd /opt/minecraft/instances/nameproject
+```
+You will find all the server files, plugins, options, maps

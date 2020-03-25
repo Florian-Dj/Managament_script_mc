@@ -9,6 +9,26 @@ table_version_bukkit=""	#set all version for support
 bukkit_version=()	#set list all version
 bukkit_under_version=()	#set list all under_version
 
+
+
+# Check setting is set to launch script
+check() {
+if [ -z $1 ]
+then
+  if [ "$(whoami)" == "minecraft" ]
+  then
+    choose_name_server
+  else
+    echo "Permision denied ! Connect to minecraft user !"
+    exit
+  fi
+else
+    echo "No settings! Delete $1"
+    exit
+fi
+}
+
+
 server_script(){
 echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
 # Create folder projet on /opt
@@ -149,18 +169,4 @@ fi
 }
 
 
-# Check setting is set to launch script
-if [ -z $1 ]
-then
-  if [ "$(whoami)" == "minecraft" ]
-  then
-    choose_name_server
-  else
-    echo "Permision denied ! Connect to minecraft user !"
-    exit
-  fi
-else
-    echo "No settings! Delete $1"
-    exit
-fi
-
+check
