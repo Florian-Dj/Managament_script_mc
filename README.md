@@ -9,18 +9,18 @@
 # Management Server Minecraft
 Install and management multiple Minecraft server on VM, VPS, Dedicated
 
+
 ## Requirement
-- Harware (minimal) :
--- 2 vCore
--- 2 Go of ram
+##### Harware (minimal) :
+- 2 vCore
+- 2 Go of ram
 
-- Software :
--- Java runtime environment
--- Screen
--- Curl
--- Git
+##### Software :
+- Java runtime environment
+- Screen
+- Curl
+- Git
 
-Debian Family :
 ```
 $ apt install curl java screen git -y
 ```
