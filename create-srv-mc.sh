@@ -29,23 +29,21 @@ fi
 }
 
 
-server_script(){
-echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
-# Create folder projet on /opt
-mkdir /opt/minecraft/instances/$name
-# Download java-server.jar and move
-curl -o java-server.jar $url_download
-mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
-echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
-# Copy/Paste, mc-run.sh and eula.txt
-cp file-srv/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
-cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
-# Copy/Paste management-template.sh
-cp file-srv/management-template.sh file-srv/management-"$name".sh
-sed -i "s/name/$name/g" file-srv/management-"$name".sh
-mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
+# Choose Project Name
+choose_name_server() {
+read -p 'Project Name: ' name_server
+if [ -z $name_server ]
+then
+    echo -e "Enter name server!"
+    choose_name_server
+else
+    name="$(echo $name_server | tr  [A-Z] [a-z])"
+    bukkit_support
+fi
 }
 
+
+# Check if download page is good
 download_request(){
 if [ $bukkit != "papermc" ] && [ $bukkit != "other" ]
 then
@@ -155,18 +153,21 @@ esac
 }
 
 
-# Choose Project Name
-choose_name_server() {
-read -p 'Project Name: ' name_server
-if [ -z $name_server ]
-then
-    echo -e "Enter name server!"
-    choose_name_server
-else
-    name="$(echo $name_server | tr  [A-Z] [a-z])"
-    bukkit_support
-fi
+server_script(){
+echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
+# Create folder projet on /opt
+mkdir /opt/minecraft/instances/$name
+# Download java-server.jar and move
+curl -o java-server.jar $url_download
+mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
+echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
+# Copy/Paste, mc-run.sh and eula.txt
+cp file-srv/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
+cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
+# Copy/Paste management-template.sh
+cp file-srv/management-template.sh file-srv/management-"$name".sh
+sed -i "s/name/$name/g" file-srv/management-"$name".sh
+mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
 }
-
 
 check
