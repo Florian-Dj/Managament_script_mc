@@ -25,42 +25,61 @@ Ram : $ram Mo
 
 if ps aux | grep -v 'grep' | grep -q name
 then
-    echo "2 - Stop"
-    echo "3 - Restart"
+    echo "1 - Stop"
+    echo "2 - Restart"
+    echo "3 - Settings"
 else
     echo "1 - Start"
+    echo "2 - Settings"
 fi
 
-echo "4 - Settings"
 echo "0 - Exit"
 echo ""
 
 read -p "Choose action : " choose
-case $choose in
-    1)  cd /opt/minecraft/instances/name
-	/usr/bin/screen -dmS mc-srv-name /bin/bash mc-run.sh
-        ;;
-    2)  cd /opt/minecraft/instances/name
-	/usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "say SERVER SHUTTING DOWN. Saving map..."\\015'
-	/usr/bin/sleep 5
-	/usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "save-all"\\015'
-	/usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "stop"\\015'
-	/bin/sleep 2
-	;;
-    3)  cd /opt/minecraft/instances/name
-	/usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "say SERVER SHUTTING DOWN. Saving map..."\\015'
-	/usr/bin/sleep 5
-	/usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "save-all"\\015'
-	/usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "stop"\\015'
-	/bin/sleep 20
+if ps aux | grep -v 'grep' | grep -q name
+then
+    if [ $choose -eq 1 ]
+    then
+        cd /opt/minecraft/instances/name
+        /usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "say SERVER SHUTTING DOWN. Saving map..."\\015'
+        /usr/bin/sleep 5
+        /usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "save-all"\\015'
+        /usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "stop"\\015'
+        /bin/sleep 2
+    elif [ $choose -eq 2 ]
+    then
+        cd /opt/minecraft/instances/name
+        /usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "say SERVER SHUTTING DOWN. Saving map..."\\015'
+        /usr/bin/sleep 5
+        /usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "save-all"\\015'
+        /usr/bin/screen -p 0 -S mc-srv-name -X eval 'stuff "stop"\\015'
+        /bin/sleep 20
         /usr/bin/screen -dmS mc-srv-name /bin/bash mc-run.sh
-        ;;
-    4)	settings
-	;;
-    0)  exit
-	;;
-    *)  mng_srv;;
-esac
+    elif [ $choose -eq 3 ]
+    then
+        settings
+    elif [ $choose -eq 0 ]
+    then
+        exit
+    else
+        mng_serv
+    fi
+else
+    if [ $choose -eq 1 ]
+    then
+        cd /opt/minecraft/instances/name
+        /usr/bin/screen -dmS mc-srv-name /bin/bash mc-run.sh
+    elif [ $choose -eq 2 ]
+    then
+        settings
+    elif [ $choose -eq 0 ]
+    then
+        exit
+    else
+        mng_serv
+    fi
+fi
 }
 
 
