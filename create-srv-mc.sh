@@ -37,8 +37,21 @@ then
     echo -e "Enter name server!"
     choose_name_server
 else
-    name="$(echo $name_server | tr  [A-Z] [a-z])"
-    bukkit_support
+    name="$(echo $name_server | tr [A-Z] [a-z])"
+    for file in /opt/minecraft/instances/*
+    do
+	if [ -d $file ] && [ $name = $(echo $file | cut -d'/' -f5) ]
+ 	then
+	    dual=True
+	fi
+    done
+    if [ $dual ]
+    then
+	echo "Name already existing !"
+	choose_name_server
+    else
+	bukkit_support
+    fi
 fi
 }
 
