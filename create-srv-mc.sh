@@ -149,8 +149,22 @@ request_url="$(curl -i -o - --silent -X GET $url_download)"
 http_status=$(echo "$request_url" | grep HTTP |  awk '{print $2}')
 if [ $http_status == "200" ]
 then
-    server_script
+    settings_file
 fi
+}
+
+
+settings_file(){
+# Create file config.ini if not exist
+if ! [ -f ~/instances/settings.ini ]
+then
+    touch ~/instances/settings.ini
+fi
+echo "[$name_server]" >> ~/instances/settings.ini
+echo "${name}_ram=1024" >> ~/instances/settings.ini
+echo "${name}_port=25565" >> ~/instances/settings.ini
+echo "" >> ~/instances/settings.ini
+server_script
 }
 
 
