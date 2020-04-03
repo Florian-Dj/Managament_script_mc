@@ -106,7 +106,10 @@ delete(){
 read -p "Warning! This action will delete server. Are you sure ? (yes/no) : " choose
 case $choose in
     yes)rm -rf /opt/minecraft/instances/name
-	rm ~/instances/management-name.sh;;
+	rm ~/instances/management-name.sh
+	sed -i '/name/d' ~/instances/settings.ini
+	sed -i '/ /d' ~/instances/settings.ini
+	;;
     no) settings
 	;;
     *)	delete

@@ -160,10 +160,10 @@ if ! [ -f ~/instances/settings.ini ]
 then
     touch ~/instances/settings.ini
 fi
-echo "[$name_server]
+echo " 
+[$name_server]
 ${name}_ram=1024
-${name}_port=25565
- " >> ~/instances/settings.ini
+${name}_port=25565" >> ~/instances/settings.ini
 server_script
 }
 
