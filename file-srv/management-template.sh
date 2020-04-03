@@ -1,5 +1,9 @@
 # Management Server name
 
+server=name
+ram=$(awk -F"=" '/name_ram/ {print $2}' config.ini)
+port=$(awk -F"=" '/name_port/ {print $2}' config.ini)
+
 
 check(){
 if [ "$(whoami)" == "minecraft" ]
@@ -12,7 +16,9 @@ fi
 
 
 mng_srv(){
-echo "Management Serveur name:
+echo "Management Server : name
+Port : $port
+Ram : $ram Mo
 
 1 - Start
 2 - Stop
@@ -62,7 +68,7 @@ read -p "Chosse action : " choose
 case $choose in
     1)	delete
 	;;
-    2)	echo "Ram"
+    2)	ram
 	;;
     0)	mng_srv
 	;;
@@ -70,7 +76,7 @@ esac
 }
 
 delete(){
-read -p "Warning! This action will delete server. Are you sure ? (yes/no) " choose
+read -p "Warning! This action will delete server. Are you sure ? (yes/no) : " choose
 case $choose in
     yes)rm -rf /opt/minecraft/instances/name
 	rm ~/instances/management-name.sh;;
@@ -79,6 +85,10 @@ case $choose in
     *)	delete
 	;;
 esac
+}
+
+ram(){
+    echo "Allocated ram server : $ram"
 }
 
 check
