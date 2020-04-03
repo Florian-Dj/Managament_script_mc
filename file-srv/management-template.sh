@@ -1,8 +1,8 @@
 # Management Server name
 
 server=name
-ram=$(awk -F"=" '/name_ram/ {print $2}' config.ini)
-port=$(awk -F"=" '/name_port/ {print $2}' config.ini)
+ram=$(awk -F"=" '/name_ram/ {print $2}' settings.ini)
+port=$(awk -F"=" '/name_port/ {print $2}' settings.ini)
 
 
 check(){
