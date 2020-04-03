@@ -16,16 +16,24 @@ fi
 
 
 mng_srv(){
-echo "Management Server : name
+echo "
+Management Server
+Server : name
 Port : $port
 Ram : $ram Mo
-
-1 - Start
-2 - Stop
-3 - Restart
-4 - Settings
-0 - Exit
 "
+
+if ps aux | grep -v 'grep' | grep -q name
+then
+    echo "2 - Stop"
+    echo "3 - Restart"
+else
+    echo "1 - Start"
+fi
+
+echo "4 - Settings"
+echo "0 - Exit"
+echo ""
 
 read -p "Choose action : " choose
 case $choose in
