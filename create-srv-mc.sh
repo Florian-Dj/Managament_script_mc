@@ -43,6 +43,7 @@ else
 	if [ -d $file ] && [ $name = $(echo $file | cut -d'/' -f5) ]
  	then
 	    dual=True
+	    break
 	fi
     done
     if [ $dual ]
@@ -50,11 +51,42 @@ else
 	echo "Name already existing !"
 	choose_name_server
     else
-	bukkit_support
+	server_port
     fi
 fi
 }
 
+
+# Choose port server
+server_port(){
+read -p 'Choose Server Port: ' choose_port
+if [ "${choose_port##*[!0-9]*}" ] && [ $choose_port -ge 25565 ]
+then
+    for port in $(grep port ~/instances/settings.ini | cut -d'=' -f2)
+    do
+        if [ $choose_port = $port ]
+        then
+            duplicate=True
+            break
+        fi
+    done
+    if [ $duplicate ]
+    then
+        read -p "Duplicate Port $port (Do you want to continue ? yes/no ): " choose
+        if [ $choose = "yes" ]
+        then
+            bukkit_support
+        else
+            server_port
+        fi
+    else
+        bukkit_support
+    fi
+else
+    echo "Port bigger 25565"
+    server_port
+fi
+}
 
 # Choose bukkit support
 bukkit_support() {
