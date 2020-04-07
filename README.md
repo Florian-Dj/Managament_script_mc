@@ -42,7 +42,7 @@ $ chown -R minecraft: /opt/minecraft
 ### Command on user servcie minecraft
 ```
 $ su - minecraft
-$ mkdir ~/instances
+$ mkdir -p ~/{instances,settings}
 $ git clone https://github.com/Mucral/Managament_script_mc.git management
 ```
 

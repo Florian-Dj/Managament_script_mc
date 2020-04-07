@@ -2,6 +2,7 @@
 
 name=""			#set name variable
 version=""		#set version variable
+port=""			#set server port
 url_request=""		#set for url request bukkit version
 url_download=""		#set url download version bukkit support
 bukkit=""		#set bukkit support (spigot, crafbukkit, paper, vanilla)
@@ -62,9 +63,9 @@ server_port(){
 read -p 'Choose Server Port: ' choose_port
 if [ "${choose_port##*[!0-9]*}" ] && [ $choose_port -ge 25565 ]
 then
-    for port in $(grep port ~/instances/settings.ini | cut -d'=' -f2)
+    for port_list in $(grep port ~/instances/settings.ini | cut -d'=' -f2)
     do
-        if [ $choose_port = $port ]
+        if [ $choose_port = $port_list ]
         then
             duplicate=True
             break
@@ -72,14 +73,16 @@ then
     done
     if [ $duplicate ]
     then
-        read -p "Duplicate Port $port (Do you want to continue ? yes/no ): " choose
+        read -p "Duplicate Port $port_list (Do you want to continue ? yes/no ): " choose
         if [ $choose = "yes" ]
         then
+	    port=$choose_port
             bukkit_support
         else
             server_port
         fi
     else
+	port=$choose_port
         bukkit_support
     fi
 else
@@ -201,20 +204,15 @@ fi
 
 settings_file(){
 # Create file config.ini if not exist
-if ! [ -f ~/instances/settings.ini ]
-then
-    touch ~/instances/settings.ini
-fi
-echo " 
-[$name_server]
-${name}_ram=1024
-${name}_port=25565" >> ~/instances/settings.ini
+touch ~/settings/settings-${name}.ini
+echo "[$name]
+ram=1024	#Mo
+port=$port" > ~/settings/settings-${name}.ini
 server_script
 }
 
 
 server_script(){
-echo "Minecraft Server $name $bukkit $version Download on /opt/minecraft/instances/$name !"
 # Create folder projet on /opt
 mkdir /opt/minecraft/instances/$name
 # Download java-server.jar and move

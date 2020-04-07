@@ -107,8 +107,7 @@ read -p "Warning! This action will delete server. Are you sure ? (yes/no) : " ch
 case $choose in
     yes)rm -rf /opt/minecraft/instances/name
 	rm ~/instances/management-name.sh
-	sed -i '/name/d' ~/instances/settings.ini
-	sed -i '/ /d' ~/instances/settings.ini
+	rm ~/settings/settings-name.ini
 	;;
     no) settings
 	;;
@@ -119,6 +118,11 @@ esac
 
 ram(){
     echo "Allocated ram server : $ram"
+    read -p "Change allocated ram ? (yes/no) : " choose
+case $choose in
+    yes) echo "Hello";;
+    *)  settings;;
+esac
 }
 
 check
