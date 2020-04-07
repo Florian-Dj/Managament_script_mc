@@ -205,9 +205,11 @@ fi
 settings_file(){
 # Create file config.ini if not exist
 touch ~/settings/settings-${name}.ini
-echo "[$name]
-ram=1024	#Mo
-port=$port" > ~/settings/settings-${name}.ini
+echo "
+[$name]
+ram=1024
+port=$port
+" > ~/settings/settings-${name}.ini
 server_script
 }
 

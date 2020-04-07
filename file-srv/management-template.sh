@@ -1,8 +1,9 @@
 # Management Server name
 
 server=name
-ram=$(awk -F"=" '/name_ram/ {print $2}' settings.ini)
-port=$(awk -F"=" '/name_port/ {print $2}' settings.ini)
+settings="~/settings/settings-name.ini"
+ram=$(awk -F"=" '/ram/ {print $2}' $settings)
+port=$(awk -F"=" '/port/ {print $2}' $settings)
 
 
 check(){
@@ -17,10 +18,7 @@ fi
 
 mng_srv(){
 echo "
-Management Server
-Server : name
-Port : $port
-Ram : $ram Mo
+Management Server :  name
 "
 
 if ps aux | grep -v 'grep' | grep -q name
@@ -86,19 +84,20 @@ fi
 settings(){
 echo "Setting for Serveur name:
 
-1 - Delete
-2 - Ram
+1 - Delete Server
+2 - Look Settings
+3 - Change Settings
 0 - Back
 "
 
 read -p "Chosse action : " choose
 case $choose in
-    1)	delete
-	;;
-    2)	ram
-	;;
-    0)	mng_srv
-	;;
+    1)	delete;;
+    2)	cat ~/settings/settings-name.ini
+	sleep 2
+	settings;;
+    3)	vim ~/settings/settings-name.ini;;
+    0)	mng_srv;;
 esac
 }
 
@@ -116,13 +115,5 @@ case $choose in
 esac
 }
 
-ram(){
-    echo "Allocated ram server : $ram"
-    read -p "Change allocated ram ? (yes/no) : " choose
-case $choose in
-    yes) echo "Hello";;
-    *)  settings;;
-esac
-}
 
 check
