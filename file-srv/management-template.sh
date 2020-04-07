@@ -1,7 +1,7 @@
 # Management Server name
 
 server=name
-settings="~/settings/settings-name.ini"
+settings=~/settings/settings-name.ini
 ram=$(awk -F"=" '/ram/ {print $2}' $settings)
 port=$(awk -F"=" '/port/ {print $2}' $settings)
 

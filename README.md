@@ -23,11 +23,11 @@ Install and management multiple Minecraft server on VM, VPS, Dedicated
 
 ##### Debian Familly :
 ```
-$ apt install curl java screen git -y
+$ apt install curl java screen git vim -y
 ```
 ##### Red Hat Family :
 ```
-$ yum install curl java screen git -y
+$ yum install curl java screen git vim -y
 ```
 
 ## Getting Started
