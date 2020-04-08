@@ -3,6 +3,7 @@
 name=""			#set name variable
 version=""		#set version variable
 port=""			#set server port
+boot=False		#set boot server after created
 url_request=""		#set for url request bukkit version
 url_download=""		#set url download version bukkit support
 bukkit=""		#set bukkit support (spigot, crafbukkit, paper, vanilla)
@@ -210,6 +211,15 @@ echo "
 ram=1024
 port=$port
 " > ~/settings/settings-${name}.ini
+boot_server
+}
+
+boot_server(){
+read -p "Boot server ? (yes/no) : " choose
+if [ $choose = "yes" ]
+then
+    boot=True
+fi
 server_script
 }
 
@@ -223,11 +233,22 @@ mv java-server.jar /opt/minecraft/instances/$name/java-server.jar
 echo "Minecraft Server $bukkit $version Download on /opt/minecraft/instances/$name !"
 # Copy/Paste, mc-run.sh and eula.txt
 cp file-srv/mc-run.sh /opt/minecraft/instances/$name/mc-run.sh
+sed -i "s/name/$name/g" /opt/minecraft/instances/$name/mc-run.sh
 cp file-srv/eula.txt /opt/minecraft/instances/$name/eula.txt
 # Copy/Paste management-template.sh
-cp file-srv/management-template.sh file-srv/management-"$name".sh
-sed -i "s/name/$name/g" file-srv/management-"$name".sh
-mv file-srv/management-"$name".sh /home/minecraft/instances/management-"$name".sh
+cp file-srv/management-template.sh ~/instances/management-"$name".sh
+sed -i "s/name/$name/g" ~/instances/management-"$name".sh
+
+if [ $boot ]
+then
+    echo "$name"
+    sleep 2
+    cd /opt/minecraft/instances/$name
+    /usr/bin/screen -dmS mc-srv-$name /bin/bash mc-run.sh
+fi
 }
 
 check
+
+
+
